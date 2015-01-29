@@ -18,7 +18,7 @@ describe('atlas:app', function () {
 
   it('creates files', function () {
     assert.file([
-      'bower.json',
+      'app/bower.json',
       'package.json',
       '.editorconfig',
       '.jshintrc'
