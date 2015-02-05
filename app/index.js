@@ -70,7 +70,9 @@ module.exports = yeoman.generators.Base.extend({
       this.copy('gulp/tasks/development/_watch.js','gulp/tasks/development/watch.js');
       this.copy('gulp/tasks/development/_wiredep.js','gulp/tasks/development/wiredep.js');
       this.mkdir('gulp/tasks/production');
+      this.copy('gulp/tasks/production/_browser-sync.js','gulp/tasks/production/browser-sync.js');
       this.copy('gulp/tasks/production/_build.js','gulp/tasks/production/build.js');
+      this.copy('gulp/tasks/production/_gh-pages.js','gulp/tasks/production/gh-pages.js');
 
     },
 
