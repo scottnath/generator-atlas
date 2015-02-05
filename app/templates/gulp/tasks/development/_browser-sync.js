@@ -14,7 +14,7 @@ var config      = require('../../config');
 
 /**
  * Gulp task that triggers browser-sync
- * @module browsersync
+ * @function browsersync
  *
  * @param   config.browsersync.development development configuration
  *
@@ -25,6 +25,11 @@ gulp.task('browsersync', function() {
   });;
 });
 
+/**
+ * Gulp task that triggers a browser-sync reload
+ * @function browsersync-reload
+ *
+ */
 gulp.task('browsersync-reload', function(){
   browsersync.reload();
 });

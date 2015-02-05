@@ -50,9 +50,12 @@ module.exports = {
     },
     production: {
       server: {
-        baseDir: [production]
+        baseDir: [production.build]
       },
-      port: 9998
+      host: 'localhost',
+      port: 9998,
+      debugInfo: false,
+      open: true
     }
   },
   build: {
