@@ -101,6 +101,9 @@ module.exports = {
       '!app/bower_components/**', // ignore bower-ingested scripts
       'app/**/*.js'] // main application file
   },
+  ghPages: {
+    src: development.app
+  },
   javascriptGlobbing: {
     config: {
       relative: true
