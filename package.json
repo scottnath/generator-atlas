@@ -1,7 +1,7 @@
 {
   "name": "generator-atlas",
-  "version": "0.0.0",
-  "description": "Yeoman generator",
+  "version": "0.0.1",
+  "description": "Yeoman generator for Atlas development environment",
   "license": "MIT",
   "main": "app/index.js",
   "repository": "scottnath/generator-atlas",
@@ -20,7 +20,10 @@
     "app"
   ],
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "atlas",
+    "front-end",
+    "development"
   ],
   "dependencies": {
     "yeoman-generator": "^0.18.0",
