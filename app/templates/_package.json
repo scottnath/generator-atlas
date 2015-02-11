@@ -1,5 +1,5 @@
 {
-  "name": "<%= appNameSafe %>",
+  "name": "<%= appNameSlug %>",
   "version": "0.0.1",
   "description": "<%= appDescription %>",
   "dependencies": {

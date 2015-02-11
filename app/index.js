@@ -2,6 +2,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+//var atlasUtil = require('../util.js');
 
 module.exports = yeoman.generators.Base.extend({
   initializing: function () {
@@ -35,13 +36,22 @@ module.exports = yeoman.generators.Base.extend({
 
     this.prompt(prompts, function (props) {
       this.appName = props.appName;
-      this.appNameSafe = props.appName.replace(/\W+/g, '-').toLowerCase();
+      this.appNameCamel = this._.camelize(this._.slugify(this._.humanize(this.appName)));
+      this.appNameSlug = this._.slugify(this._.humanize(this.appName));
       this.appDescription = props.appDescription;
 
       done();
     }.bind(this));
   },
-
+  configuring: function () {
+    this.config.set('appName', this.appName);
+    this.config.set('appDescription', this.appDescription);
+    this.config.set('appNameCamel', this.appNameCamel);
+    this.config.set('appNameSlug', this.appNameSlug);
+    this.config.save();
+    console.log('generator-atlas.appName');
+    console.log(this.config.getAll());
+  },
   writing: {
     app: function () {
       this.mkdir('app');
@@ -65,6 +75,7 @@ module.exports = yeoman.generators.Base.extend({
       this.copy('gulp/tasks/development/_css-globbing.js','gulp/tasks/development/css-globbing.js');
       this.copy('gulp/tasks/development/_css-lint.js','gulp/tasks/development/css-lint.js');
       this.copy('gulp/tasks/development/_eslint.js','gulp/tasks/development/eslint.js');
+      this.copy('gulp/tasks/development/_install.js','gulp/tasks/development/install.js');
       this.copy('gulp/tasks/development/_javascript-globbing.js','gulp/tasks/development/javascript-globbing.js');
       this.copy('gulp/tasks/development/_scss-lint.js','gulp/tasks/development/scss-lint.js');
       this.copy('gulp/tasks/development/_watch.js','gulp/tasks/development/watch.js');
@@ -90,8 +101,22 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   install: function () {
+
+    if (!this.options['skipInstall']) {
+      this.spawnCommand('bundle', ['install','--path','vendor']);
+    }
+
     this.installDependencies({
-      skipInstall: this.options['skip-install']
+      skipInstall: this.options['skipInstall'],
+      callback: function() {
+        // Emit a new event - dependencies installed
+        this.emit('dependenciesInstalled');
+      }.bind(this)
     });
+
+    // Bind to the dependencies installed event - turn on if bower components added in main Atlas
+    // this.on('dependenciesInstalled', function() {
+    //   this.spawnCommand('gulp', ['wiredep']);
+    // });
   }
 });

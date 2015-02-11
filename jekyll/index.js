@@ -2,42 +2,23 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var cp = require('child_process');
 
 module.exports = yeoman.generators.Base.extend({
-  prompting: function () {
-    var done = this.async();
+  constructor: function () {
+    yeoman.generators.Base.apply(this, arguments);
 
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      'Kickin Jekyll ' + chalk.red('Atlas-Jekyll') + ' sub-generator!'
-    ));
-
-    var prompts = [{
-      type: 'confirm',
-      name: 'someOptionSub',
-      message: 'Would you like to enable this SUB SUB option?',
-      default: true
-    }];
-
-    this.prompt(prompts, function (props) {
-      this.someOptionSub = props.someOptionSub;
-
-      done();
-    }.bind(this));
+    // This method adds support for a `--folder` flag
+    this.option('folder');
   },
-
-  writing: {
-    app: function () {
-      this.fs.copy(
-        this.templatePath('_tester.js'),
-        this.destinationPath('tester.js')
-      );
-    }
-  },
-
   install: function () {
-    this.installDependencies({
-      skipInstall: this.options['skip-install']
+    this.jekyllFolder = (this.options.folder ? this.options.folder: "app");
+    cp.exec('jekyll new ./'+this.jekyllFolder, function(error, stdout, stderr) {
+      console.log('stdout: ', stdout);
+      console.log('stderr: ', stderr);
+      if (error !== null) {
+          console.log('exec error: ', error);
+      }
     });
   }
 });

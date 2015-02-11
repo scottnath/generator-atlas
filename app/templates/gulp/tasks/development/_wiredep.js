@@ -26,7 +26,7 @@ var config = require('../../config');
 gulp.task('wiredep', function() {
   console.log('-------------------------------------------------- DEVELOPMENT: wiredep gathering bower components');
 
-  gulp.src(config.wiredep.src)
+  return gulp.src(config.wiredep.src)
     .pipe(plumber())
     .pipe(wiredep(config.wiredep.config))
     .pipe(gulp.dest(config.wiredep.dest));
