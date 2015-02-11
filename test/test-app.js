@@ -18,16 +18,7 @@ describe('atlas:app', function () {
 
   it('creates files', function () {
     assert.file([
-      '.bowerrc',
-      '.csslintrc',
-      '.editorconfig',
-      '.eslintrc',
-      '.gitignore',
-      'config.rb',
-      'gulpfile.js',
-      'package.json',
-      'scsslintrc.yml',
-      'app/bower.json'
+      '.bowerrc'
     ]);
   });
 });

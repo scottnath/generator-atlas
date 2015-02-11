@@ -151,16 +151,12 @@ module.exports = yeoman.generators.Base.extend({
   },
   install: function () {
     var installs = ['angular'];
-    console.log(this.env.options.angularDeps);
-    console.log(this.env.options.angMods);
     if(this.env.options.angMods){
       for (var i = 0, len = this.env.options.angMods.length; i < len; i++) {
-        console.log(this.env.options.angMods[i]);
+
         installs.push(this.env.options.angMods[i]);
       }
     }
-    console.log('installs');
-    console.log(installs);
     this.bowerInstall(installs, { 'save': true });
     // this.on('end', function () {
     //   this.spawnCommand('gulp', ['wiredep']); // change 'prepare' with your task.

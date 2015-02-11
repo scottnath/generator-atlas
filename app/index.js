@@ -49,8 +49,6 @@ module.exports = yeoman.generators.Base.extend({
     this.config.set('appNameCamel', this.appNameCamel);
     this.config.set('appNameSlug', this.appNameSlug);
     this.config.save();
-    console.log('generator-atlas.appName');
-    console.log(this.config.getAll());
   },
   writing: {
     app: function () {
