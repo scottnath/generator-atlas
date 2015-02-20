@@ -57,6 +57,8 @@ module.exports = yeoman.generators.Base.extend({
       this.copy('app/_index.html','app/index.html');
       this.mkdir('app/_gulp');
       this.copy('app/_gulp/_config-overrides.js','app/_gulp/config-overrides.js');
+      this.mkdir('app/styles');
+      this.copy('app/styles/_styles.scss','app/styles/styles.scss');
     },
 
     gulpfiles: function(){

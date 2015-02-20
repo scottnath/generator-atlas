@@ -139,33 +139,39 @@ module.exports = yeoman.generators.Base.extend({
 
       this.mkdir('app/scripts');
       this.template('app/scripts/_app.js','app/scripts/app.js');
-      this.copy('app/_index.html','app/index.html');
 
       this.mkdir('app/main');
       this.template('app/main/_main-controller.js','app/main/main-controller.js');
       this.template('app/main/_main-controller_test.js','app/main/main-controller_test.js');
       this.template('app/main/_main.html','app/main/main.html');
       this.template('app/main/_main.scss','app/main/_main.scss');
+    },
+
+    update: function() {
+
+      var indexFile = this.readFileAsString('app/index.html');
+      indexFile = indexFile.replace('<html class="no-js">','<html class="no-js" ng-app="' + this.config.get('appNameCamel') + '">')
+      indexFile = indexFile.replace('<!-- angular-view -->','<ng-view></ng-view>');
+      indexFile = indexFile.replace('<!-- inject:js -->','<!-- inject:js -->\n    <script src="main/main-controller.js"></script>\n    <script src="scripts/app.js"></script>');
+      this.write('app/index.html',indexFile);
     }
 
   },
   install: function () {
-    var installs = ['angular'];
-    if(this.env.options.angMods){
-      for (var i = 0, len = this.env.options.angMods.length; i < len; i++) {
 
-        installs.push(this.env.options.angMods[i]);
+    if (!this.options['skipInstall']) {
+
+      var installs = ['angular'];
+      if(this.env.options.angMods){
+        for (var i = 0, len = this.env.options.angMods.length; i < len; i++) {
+          installs.push(this.env.options.angMods[i]);
+        }
       }
+      this.bowerInstall(installs, { 'save': true });
+      this.on('end', function () {
+        this.spawnCommand('gulp', ['wiredep']); // change 'prepare' with your task.
+      });
     }
-    this.bowerInstall(installs, { 'save': true });
-    // this.on('end', function () {
-    //   this.spawnCommand('gulp', ['wiredep']); // change 'prepare' with your task.
-
-    // });
-    this.on('end', function () {
-      this.spawnCommand('gulp', ['javascript-globbing']); // change 'prepare' with your task.
-
-    });
 
   }
 
