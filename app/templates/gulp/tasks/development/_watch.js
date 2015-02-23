@@ -27,7 +27,7 @@ var config = require('../../config');
  * @param   config.development.appHtml   application main html file
  *
  */
-gulp.task('watch', ['browsersync'], function() {
+gulp.task('watch', function() {
 
   /**
   * Gulp Watch tracking .scss/.sass files for changes, then lints and globs them, then triggers compass

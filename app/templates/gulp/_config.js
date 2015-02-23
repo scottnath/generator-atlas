@@ -40,13 +40,16 @@ module.exports = {
   },
   browsersync: {
     development: {
-      server: {
-        baseDir: [development.app]
+      config: {
+        server: {
+          baseDir: [development.app]
+        },
+        host: 'localhost',
+        port: 8001,
+        debugInfo: false,
+        open: true
       },
-      host: 'localhost',
-      port: 8001,
-      debugInfo: false,
-      open: true
+      dependencies: ['css-globbing','compass','watch']
     },
     production: {
       server: {
