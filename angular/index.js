@@ -152,7 +152,7 @@ module.exports = yeoman.generators.Base.extend({
       var indexFile = this.readFileAsString('app/index.html');
       indexFile = indexFile.replace('<html class="no-js">','<html class="no-js" ng-app="' + this.config.get('appNameCamel') + '">')
       indexFile = indexFile.replace('<!-- angular-view -->','<ng-view></ng-view>');
-      indexFile = indexFile.replace('<!-- inject:js -->','<!-- inject:js -->\n    <script src="main/main-controller.js"></script>\n    <script src="scripts/app.js"></script>');
+      indexFile = indexFile.replace('<!-- inject:js -->','<!-- inject:js -->\n    <script src="scripts/app.js"></script>\n    <script src="main/main-controller.js"></script>');
       this.write('app/index.html',indexFile);
     }
 
