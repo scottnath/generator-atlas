@@ -79,7 +79,7 @@ module.exports = yeoman.generators.Base.extend({
       this.touchModule = hasMod('touchModule');
 
       var angMods = [];
-      var angularDeps = [];
+      var angularDeps = ['templatescache']; // automatically include templatescache file
 
       if (this.animateModule) {
         angMods.push('angular-animate');
@@ -139,6 +139,7 @@ module.exports = yeoman.generators.Base.extend({
 
       this.mkdir('app/scripts');
       this.template('app/scripts/_app.js','app/scripts/app.js');
+      this.template('app/scripts/_templates.js','app/scripts/templates.js');
 
       this.mkdir('app/main');
       this.template('app/main/_main-controller.js','app/main/main-controller.js');
@@ -150,10 +151,33 @@ module.exports = yeoman.generators.Base.extend({
     update: function() {
 
       var indexFile = this.readFileAsString('app/index.html');
-      indexFile = indexFile.replace('<html class="no-js">','<html class="no-js" ng-app="' + this.config.get('appNameCamel') + '">')
-      indexFile = indexFile.replace('<!-- angular-view -->','<ng-view></ng-view>');
-      indexFile = indexFile.replace('<!-- inject:js -->','<!-- inject:js -->\n    <script src="scripts/app.js"></script>\n    <script src="main/main-controller.js"></script>');
+      indexFile = indexFile.replace('<html class="no-js">','<html class="no-js" ng-app="' + this.config.get('appNameCamel') + '">');
+      if(this.env.options.ngRoute){
+        indexFile = indexFile.replace('<!-- angular-view -->','<ng-view></ng-view>');
+      }else{
+        indexFile = indexFile.replace('<!-- angular-view -->','<div ng-include="\'main/main.html\'" ng-controller="MainCtrl"></div>');
+      }
+      indexFile = indexFile.replace('<!-- inject:js -->','<!-- inject:js -->\n    <script src="scripts/templates.js"></script>\n    <script src="scripts/app.js"></script>\n    <script src="main/main-controller.js"></script>');
       this.write('app/index.html',indexFile);
+
+      var appGulpConfigFile = this.readFileAsString('app/_gulp/config-overrides.js');
+      var appGulpNewConfigs = "config.javascriptGlobbing.files = [\n"
++ "  '!' + config.development.app + '/bower_components/**', // ignore bower-ingested scripts\n"
++ "  '!' + config.development.app + '/**/*_test.js', // ignore our test scripts\n"
++ "  '!' + config.development.app + '/karma.conf.js', // ignore our karma config\n"
++ "  '!' + config.development.app + '/_gulp/**', // ignore all files in the app's _gulp directory\n"
++ "  config.development.app + '/scripts/templates.js', // template script\n"
++ "  config.development.app + '/scripts/app.js', // main app script\n"
++ "  config.development.app + '/**/*.js' // main application file\n"
++ "];\n"
++ "\n"
++ "config.eslint.src = [\n"
++ "  '!app/bower_components/**', // ignore bower-ingested scripts\n"
++ "  '!' + config.development.app + '/scripts/templates.js', // template script\n"
++ "  'app/**/*.js'\n"
++ "];";
+      appGulpConfigFile = appGulpConfigFile.replace('module.exports = config;',appGulpNewConfigs + '\nmodule.exports = config;');
+      this.write('app/_gulp/config-overrides.js',appGulpConfigFile);
     }
 
   },
