@@ -104,9 +104,10 @@ module.exports = {
       configFile: '.eslintrc'
     },
     src: [ // Application javascripts
-      '!app/bower_components/**', // ignore bower-ingested scripts
-      '!app/_gulp/**', // ignore gulpjs scripts
-      'app/**/*.js'] // main application file
+      '!' + development.app + '/bower_components/**', // ignore bower-ingested scripts
+      '!' + development.app + '/**/*_test.js', // ignore our test scripts
+      '!' + development.app + '/_gulp/**', // ignore gulpjs scripts
+      development.app + '/**/*.js'] // main application file
   },
   ghPages: {
     src: development.app
