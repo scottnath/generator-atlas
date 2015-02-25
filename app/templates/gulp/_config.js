@@ -105,6 +105,7 @@ module.exports = {
     },
     src: [ // Application javascripts
       '!app/bower_components/**', // ignore bower-ingested scripts
+      '!app/_gulp/**', // ignore gulpjs scripts
       'app/**/*.js'] // main application file
   },
   ghPages: {

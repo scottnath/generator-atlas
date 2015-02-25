@@ -16,7 +16,7 @@ linters:
     enabled: true
 
   DeclarationOrder:
-    enabled: true
+    enabled: false
 
   DuplicateProperty:
     enabled: true
@@ -37,7 +37,7 @@ linters:
     present: true
 
   HexLength:
-    enabled: true
+    enabled: false
     style: short # or 'long'
 
   HexNotation:
@@ -80,7 +80,7 @@ linters:
 
   SelectorDepth:
     enabled: true
-    max_depth: 3
+    max_depth: 6
 
   Shorthand:
     enabled: true
@@ -108,7 +108,7 @@ linters:
 
   SpaceBetweenParens:
     enabled: true
-    spaces: 0
+    spaces: 1
 
   StringQuotes:
     enabled: true
