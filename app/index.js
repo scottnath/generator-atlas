@@ -102,21 +102,18 @@ module.exports = yeoman.generators.Base.extend({
 
   install: function () {
 
-    if (!this.options['skipInstall']) {
-      this.spawnCommand('bundle', ['install','--path','vendor']);
-    }
 
     this.installDependencies({
-      skipInstall: this.options['skipInstall'],
+      skipInstall: this.options['skip-install'],
       callback: function() {
         // Emit a new event - dependencies installed
         this.emit('dependenciesInstalled');
       }.bind(this)
     });
 
-    // Bind to the dependencies installed event - turn on if bower components added in main Atlas
-    // this.on('dependenciesInstalled', function() {
-    //   this.spawnCommand('gulp', ['wiredep']);
-    // });
+    if (!this.options['skip-install']) {
+      this.spawnCommand('bundle', ['install','--path','vendor']);
+    }
+
   }
 });

@@ -9,9 +9,11 @@ describe('atlas:app', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../app'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
-      .withOptions({ 'skip-install': true })
+      .withArguments(['--skip-install'])
       .withPrompt({
-        someOption: true
+        appName: 'test-name',
+        appDescription: 'test sentence about nothing.',
+        requiredInstallations: 'y'
       })
       .on('end', done);
   });
