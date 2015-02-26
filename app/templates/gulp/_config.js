@@ -89,6 +89,10 @@ module.exports = {
         globBlockBegin: 'cssGlobbingBegin',
         globBlockEnd: 'cssGlobbingEnd',
         globBlockContents: '../**/*.scss'
+      },
+      scssImportPath: {
+        leading_underscore: false,
+        filename_extension: false
       }
     },
     src: development.appScssFile,
