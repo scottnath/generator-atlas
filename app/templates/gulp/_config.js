@@ -153,6 +153,9 @@ module.exports = {
       development.app + '/styles/styles.scss' // calls app style sass file, which imports the others
     ],
   },
+  watch: {
+    dependencies: []
+  },
   wiredep: {
     config: {
       cwd: development.app
@@ -162,4 +165,3 @@ module.exports = {
     dest: development.app
   }
 };
-
