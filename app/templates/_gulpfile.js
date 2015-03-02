@@ -12,6 +12,6 @@ try {
   requireDir(appGulpDir, { recurse: true });
 }
 catch (e) {
-  console.log('Gulp app directory does not exist')
+  console.log('Gulp app directory (' + appGulpDir + ') does not exist')
   console.log(e)
 }

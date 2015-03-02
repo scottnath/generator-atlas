@@ -1,4 +1,4 @@
-config.browsersync.development.server.baseDir = 'app/_site';
+config.browsersync.development.config.server.baseDir = 'app/_site';
 
 config.jekyll = {
   src: 'app',
